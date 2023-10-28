@@ -65,4 +65,23 @@ body {
   background-color: var(--primary-color);
   font-size: 16px;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.calendar .header .btns .btn:hover {
+  background-color: #00812b;
+  transform: scale(1.05);
+}
+
+.weekdays {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.weekdays .day {
+  width: calc(100% / 7 - 10px);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
 }
