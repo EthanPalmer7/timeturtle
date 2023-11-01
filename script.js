@@ -1,26 +1,11 @@
+// type of each is HTMLelement or null
 const daysContainer = document.querySelector(".days"),
   nextBtn = document.querySelector(".next-btn"),
   prevBtn = document.querySelector(".prev-btn"),
   month = document.querySelector(".month"),
   todayBtn = document.querySelector(".today-btn");
 
-// <!-- prev month days -->
-// <div class="day prev">28</div>
-// <div class="day prev">29</div>
-// <div class="day prev">30</div>
-// <!-- current month days -->
-// <div class="day">1</div>
-// <div class="day">2</div>
-// <div class="day">3</div>
-// <div class="day today">4</div>
-// <div class="day">5</div>
-// <div class="day">6</div>
-// <div class="day">7</div>
-// <!-- next month days -->
-// <div class="day next">1</div>
-// <div class="day next">2</div>
-// <div class="day next">3</div>
-
+// month string
 const months = [
   "January",
   "February",
@@ -36,15 +21,28 @@ const months = [
   "December",
 ];
 
+// title for each column
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-// get current date
+/**
+ * Date()
+ * returns a string representation of the current date and time
+ * i.e. --> "Wed Nov 01 2023 12:28:59 GMT-0700 (Pacific Daylight Time)"
+ */
 const date = new Date();
 
-// get current month
+/**
+ * getMonth()
+ * returns int between 0-11 inclusive representing current month
+ * i.e. --> 10 (November)
+ */
 let currentMonth = date.getMonth();
 
-// get current year
+/**
+ * getFullYear()
+ * returns int representing current year
+ * i.e. --> 2023
+ */
 let currentYear = date.getFullYear();
 
 // function to render days
