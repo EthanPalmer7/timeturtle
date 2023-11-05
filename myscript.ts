@@ -153,8 +153,12 @@ function hideTodayBtn(): void {
   }
 }
 
-const daysChildContainter = daysContainer.querySelectorAll(".day");
+const daysChildContainer: NodeListOf<HTMLElement> =
+  daysContainer.querySelectorAll(".day");
+const popup: HTMLElement | null = document.querySelector(".popup");
 
-daysChildContainter.forEach((daysChild) => {
-  daysChild.addEventListener("click", () => {});
+daysChildContainer.forEach((daysChild) => {
+  daysChild.addEventListener("click", () => {
+    popup.style.display = "flex";
+  });
 });

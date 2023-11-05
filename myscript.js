@@ -124,8 +124,11 @@ function hideTodayBtn() {
         todayBtn.style.display = "flex";
     }
 }
-var daysChildContainter = daysContainer.querySelectorAll(".day");
-daysChildContainter.forEach(function (daysChild) {
-    daysChild.addEventListener("click", function () { });
+var daysChildContainer = daysContainer.querySelectorAll(".day");
+var popup = document.querySelector(".popup");
+daysChildContainer.forEach(function (daysChild) {
+    daysChild.addEventListener("click", function () {
+        popup.style.display = "flex";
+    });
 });
 //# sourceMappingURL=myscript.js.map
