@@ -1,11 +1,14 @@
-// type of each is HTMLelement or null
-const daysContainer = document.querySelector(".days"),
-  nextBtn = document.querySelector(".next-btn"),
-  prevBtn = document.querySelector(".prev-btn"),
-  month = document.querySelector(".month"),
-  todayBtn = document.querySelector(".today-btn");
+// HTML elements
+const calendar = document.querySelector(".calendar");
+const daysContainer = calendar.querySelector(".days");
+const nextBtn = calendar.querySelector(".next-btn");
+const prevBtn = calendar.querySelector(".prev-btn");
+const month = calendar.querySelector(".month");
+const todayBtn = calendar.querySelector(".today-btn");
+const popup = document.querySelector(".popup");
+const popupTitle = popup.querySelector(".title");
 
-// month string
+// month header string
 const months = [
   "January",
   "February",
@@ -24,37 +27,33 @@ const months = [
 // title for each column
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-/**
- * Date()
- * returns a string representation of the current date and time
- * i.e. --> "Wed Nov 01 2023 12:28:59 GMT-0700 (Pacific Daylight Time)"
- */
+// i.e. --> date == "Wed Nov 01 2023 12:28:59 GMT-0700 (Pacific Daylight Time)"
 const date = new Date();
 
-/**
- * getMonth()
- * returns int between 0-11 inclusive representing current month
- * i.e. --> 10 (November)
- */
+// int between 0-11 inclusive representing current month
 let currentMonth = date.getMonth();
 
-/**
- * getFullYear()
- * returns int representing current year
- * i.e. --> 2023
- */
+// currentYear == 2023
 let currentYear = date.getFullYear();
 
 // function to render days
 function renderCalendar() {
   // get prev month, current month, and next month days
   date.setDate(1);
+
+  // i.e. --> firstDay == "Wed Nov 01 2023 00:00:00 GMT-0700 (Pacific Daylight Time)"
   const firstDay = new Date(currentYear, currentMonth, 1);
+  // i.e. --> lastDay == "Thu Nov 30 2023 00:00:00 GMT-0800 (Pacific Standard Time)"
   const lastDay = new Date(currentYear, currentMonth + 1, 0);
+  // i.e. --> lastDayIndex == (0 Sunday, 6 Saturday)
   const lastDayIndex = lastDay.getDay();
+  // i.e. --> lastDayDate == (1-31)
   const lastDayDate = lastDay.getDate();
+  // i.e. --> prevLastDay == "Tue Oct 31 2023 00:00:00 GMT-0700 (Pacific Daylight Time)"
   const prevLastDay = new Date(currentYear, currentMonth, 0);
+  // i.e. --> prevLastDayDate == (1-31)
   const prevLastDayDate = prevLastDay.getDate();
+  // number of days to display after the last day (if lastday of the month is saturday, index == 6, and nextdays == 0)
   const nextDays = 7 - lastDayIndex - 1;
 
   // update current year and month in header
@@ -63,14 +62,18 @@ function renderCalendar() {
   // update days html
   let days = "";
 
-  // prev days html
+  // get day of week for 1st day of month (we want to know if it is Wed (3) etc..)
+  // if day is sunday skip, else add prev month days to HTMLElement to days String
+  // iterate through days before 1st day untill sunday (i.e. --> if 1st day is wednesday, iterate 3 times (Sun, Mon, Tues))
+  // add prev days to days string as HTMLELement with added class tag 'prev'
   for (let x = firstDay.getDay(); x > 0; x--) {
+    // add prev days starting from sunday to day before 1st day
     days += `<div  class="day prev">${prevLastDayDate - x + 1}</div>`;
   }
 
-  // current month days
+  // loop through days in month, if i == current day of month add class tag 'today', else dont add class tag 'today'
+  // add all 28+ days as HTMLElements to days string
   for (let i = 1; i <= lastDayDate; i++) {
-    // check if its oday then add today class
     if (
       i === new Date().getDate() &&
       currentMonth === new Date().getMonth() &&
@@ -84,14 +87,38 @@ function renderCalendar() {
     }
   }
 
-  // next month days
+  // loop thorugh days after last day
+  // add next days to days string as HTMLELement with added class tag 'next'
   for (let j = 1; j <= nextDays; j++) {
     days += `<div class="day next">${j}</div>`;
   }
 
   // run these functions with every calendar render
   hideTodayBtn();
+
+  // add to the innerHTML of the days class (daysContainter variable) to display all days (prev, currentmonth, today, next)
   daysContainer.innerHTML = days;
+
+  const dayElementsContainer = daysContainer.querySelectorAll(".day");
+  let currentScreenMonthText = calendar
+    .querySelector(".month")
+    .innerHTML.split(" ");
+  let currentScreenMonth = currentScreenMonthText[0];
+  let currentScreenYear = currentScreenMonthText[1];
+
+  dayElementsContainer.forEach((dayElement) => {
+    console.log(dayElement.className);
+    if (
+      !dayElement.className.includes("next") &&
+      !dayElement.className.includes("prev")
+    ) {
+      dayElement.addEventListener("click", () => {
+        popup.style.display = "flex";
+        popupTitle.innerHTML = `${currentScreenMonth} ${dayElement.innerHTML}, ${currentScreenYear}`;
+        calendar.style.display = "none";
+      });
+    }
+  });
 }
 
 renderCalendar();

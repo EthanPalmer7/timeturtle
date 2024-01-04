@@ -90,6 +90,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  border: none;
 }
 
 .days .day {
@@ -103,6 +104,7 @@ body {
   font-weight: 400;
   color: var(--text-color);
   background-color: #fff;
+  border-style: none;
   transition: all 0.3s;
 }
 
@@ -124,15 +126,50 @@ body {
 
 .popup {
   display: none;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
   width: 100%;
-  min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-  text-align: center;
-  color: red;
+  max-width: 600px;
+  padding: 30px 20px;
+  border-radius: 10px;
+  background-color: var(--bg-color);
+}
+
+.popup .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+.popup .header .title {
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.popup .header .btns {
+  display: flex;
+  gap: 10px;
+}
+
+.popup .header .btns .btn {
+  width: 50px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: var(--primary-color);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.popup .header .btns .btn:hover {
+  background-color: #00812b;
+  transform: scale(1.05);
 }
